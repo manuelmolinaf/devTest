@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit, NgZone   } from '@angular/core';
-import { Observable, BehaviorSubject  } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { BehaviorSubject  } from 'rxjs';
 import { WebSocketSubject } from 'rxjs/webSocket';
 import { Instrument } from 'src/app/models/Instrument';
 import { Message, Table } from 'src/app/models/Message';
@@ -15,7 +15,7 @@ export class InstrumentPanelComponent implements OnInit, OnDestroy {
 
   instrumentSubject:BehaviorSubject<Instrument| undefined> = new BehaviorSubject<Instrument| undefined>(undefined);
   bitmexSocket$: WebSocketSubject<Message> |undefined;
-  constructor( private bitmexService:BitMexService,private ngZone: NgZone){
+  constructor( private bitmexService:BitMexService){
 
   }
 
