@@ -14,52 +14,108 @@ export class OrderBookPanelComponent implements OnInit, OnDestroy {
   orderBookSubject$:BehaviorSubject<OrderBook> = new BehaviorSubject<OrderBook>({asks:[], bids:[]});
   bitmexSocket$: WebSocketSubject<Message> |undefined;
 
+  bidCols:any = [];
+  askCols:any = [];
+  initializingOrderBook = false;
+
   constructor( private bitmexService:BitMexService){
 
   }
   
   ngOnInit(): void {
+    this.defineColumns();
     this.getBitMexWebSocketSubject();
-    this.bitMexWebSocketSubscription();
+    this.initializeOrderBook().then(()=>this.bitMexWebSocketSubscription());
+    //this.orderBookSubject$.asObservable().subscribe(val=> console.log(val));
+
   }
 
   ngOnDestroy(): void {
     this.bitmexSocket$?.unsubscribe();
   }
 
-  async initializeOrderBook(){
-    
+  defineColumns(){
+    this.bidCols = [
+      { field: 'size', header: 'Size' },
+      { field: 'price', header: 'Price' }
+    ]
+
+    this.askCols = [     
+      { field: 'price', header: 'Price' },
+      { field: 'size', header: 'Size' }
+    ]
+  }
+
+
+  initializeOrderBook(){
+    return this.bitmexService.getOrderBook().then(entries =>{
+      this.updateOrderBook(entries, Action.Insert);
+    })
     
   }
 
+  /**
+   * @param entries
+   * @param action 
+   * @description Updates the orderbook based on the action given.
+   */
   updateOrderBook(entries:OrderBookEntry[], action:Action){
 
-    let newOrderBook = this.orderBookSubject$.getValue()
+    switch(action){
+      case Action.Insert:
 
-
-    entries.forEach( entry =>{
-
-      switch(action){
-        case Action.Insert:
-
+        entries.forEach( entry =>{
+          let newOrderBook = this.orderBookSubject$.getValue()
+    
           if(entry.side === Side.Buy){
             newOrderBook.bids.push(entry)
           }
           else if(entry.side === Side.Sell){
             newOrderBook.asks.push(entry)
           }
+    
+          this.orderBookSubject$.next(newOrderBook);
+        });
+        
+        break;
+      case Action.Update:
+        entries.forEach( entry =>{
+          let newOrderBook = this.orderBookSubject$.getValue()
+    
+          if(entry.side === Side.Buy){
+            newOrderBook.bids = newOrderBook.bids.map( bid => bid.id === entry.id ? {...bid, ...entry} : bid)
+          }
+          else if(entry.side === Side.Sell){
+            newOrderBook.asks = newOrderBook.asks.map( ask => ask.id === entry.id ? {...ask, ...entry} : ask)
+          }
+    
+          this.orderBookSubject$.next(newOrderBook);
+        });
+        
+        break;
 
-          break;
-        case Action.Update:
-          
-          break;
-        case Action.Delete:
-          break;
-        default:
-          break;
-      }
+      case Action.Delete:
 
-    }) 
+        entries.forEach( entry =>{
+          let newOrderBook = this.orderBookSubject$.getValue()
+    
+          if(entry.side === Side.Buy){
+            const index = newOrderBook.bids.findIndex(bid => bid.id === entry.id)
+            newOrderBook.bids.splice(index, 1);
+          }
+          else if(entry.side === Side.Sell){
+            const index = newOrderBook.asks.findIndex(ask => ask.id === ask.id)
+            newOrderBook.asks.splice(index, 1);
+          }
+    
+          this.orderBookSubject$.next(newOrderBook);
+        });
+
+        break;
+
+      default:
+        break;
+    } 
 
   }
 
@@ -69,12 +125,13 @@ export class OrderBookPanelComponent implements OnInit, OnDestroy {
 
   bitMexWebSocketSubscription(){
     this.bitmexSocket$?.subscribe( message =>{
-
+      
       if(message.table === Table.OrderBook){      
-        
-       
+        this.updateOrderBook(message.data, message.action);   
       }
       
     })
   }
+ 
+
 }

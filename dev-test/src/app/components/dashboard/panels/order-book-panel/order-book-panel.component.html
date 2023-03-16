@@ -1,1 +1,39 @@
-<p>order-book-panel works!</p>
+<div class="d-flex flex-row shadow-sm">
+    <div class="flex-fill border border-bottom-0">
+        <p-table [columns]="bidCols" [value]="(orderBookSubject$ |async)!.bids |limitSort:10:-1" [rows]="2" [loading]="initializingOrderBook" styleClass="p-datatable-sm">
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columns" class="text-center">
+                        {{col.header}}
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-columns="columns">
+                <tr>
+                    <td *ngFor="let col of columns" [ngClass]="{'text-success fw-bold': col.field === 'price'}" class="text-center">
+                        {{rowData[col.field]}}
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+    
+    <div class="flex-fill border border-bottom-0 border-start-0 ">
+        <p-table [columns]="askCols" [value]="(orderBookSubject$ |async)!.asks |limitSort:10:1" [rows]="2" [loading]="initializingOrderBook" styleClass="p-datatable-sm">
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columns" class="text-center">
+                        {{col.header}}
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-columns="columns">
+                <tr>
+                    <td *ngFor="let col of columns" [ngClass]="{'text-danger fw-bold': col.field === 'price'}" class="text-center">
+                        {{rowData[col.field]}}
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>

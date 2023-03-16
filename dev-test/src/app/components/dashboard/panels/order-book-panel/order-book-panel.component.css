@@ -1,0 +1,16 @@
+.table-container {
+    display: flex;
+  }
+  
+  .table1,
+  .table2 {
+    width: 50%;
+  }
+  
+  .table1 {
+    margin-right: 10px;
+  }
+  
+  .table2 {
+    margin-left: 10px;
+  }

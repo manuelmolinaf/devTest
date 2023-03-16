@@ -5,6 +5,7 @@ import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
 import { Message } from 'src/app/models/Message';
 import { lastValueFrom, Observable } from 'rxjs';
 import { Instrument } from 'src/app/models/Instrument';
+import { OrderBookEntry } from 'src/app/models/OrderBook';
 
 const socketEndpoint = 'wss://ws.bitmex.com/realtime?subscribe=instrument,orderBookL2_25:XBTUSD';
 
@@ -36,7 +37,7 @@ export class BitMexService {
 
    getOrderBook(symbol:string = 'XBTUSD'){
     const params = new HttpParams().set('symbol', symbol);
-    return lastValueFrom(this.http.get<Instrument[]>('/api/orderBook/L2', {params}));
+    return lastValueFrom(this.http.get<OrderBookEntry[]>('/api/orderBook/L2', {params}));
    }
 
 }

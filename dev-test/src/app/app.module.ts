@@ -6,23 +6,28 @@ import { AppComponent } from './app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { InstrumentPanelComponent } from './components/dashboard/panels/instrument-panel/instrument-panel.component';
-import {MatCardModule} from '@angular/material/card';
 import { InstrumentValueComponent } from './components/dashboard/panels/instrument-panel/instrument-value/instrument-value.component';
 import { OrderBookPanelComponent } from './components/dashboard/panels/order-book-panel/order-book-panel.component';
+
+import { TableModule } from 'primeng/table';
+import { LimitSortPipe } from './pipes/limit-sort.pipe';
+
+
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
     InstrumentPanelComponent,
     InstrumentValueComponent,
-    OrderBookPanelComponent
+    OrderBookPanelComponent,
+    LimitSortPipe
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatCardModule
+    TableModule
   ],
   providers: [],
   bootstrap: [AppComponent]
