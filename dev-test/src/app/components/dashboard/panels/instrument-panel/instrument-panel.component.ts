@@ -55,7 +55,7 @@ export class InstrumentPanelComponent implements OnInit, OnDestroy {
 
   getTimeUntilFunding(instrument?:Instrument|undefined | null){
     
-    if(!instrument) return;
+    if(!instrument) return '0H';
 
     const fundingTimestamp = new Date(instrument.fundingTimestamp).getTime();
     const currentTimestamp = new Date().getTime();
