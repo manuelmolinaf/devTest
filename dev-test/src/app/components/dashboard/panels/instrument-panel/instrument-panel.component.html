@@ -13,10 +13,13 @@
         </div>
         <!-- <div class="col">
             <app-instrument-value [title]="'Funding Rate'" [value]="( instrumentSubject | async)?.fundingRate |percent: '1.5-10'" />
-        </div>
-        <div class="col">
+        </div> -->
+        <!-- <div class="col">
             <app-instrument-value [title]="'Next Funding'" [value]="( instrumentSubject | async)?.fundingInterval | date:'h\'H\' mm\'M\''" />
         </div> -->
+        <div class="col">
+            <app-instrument-value [title]="'Next Funding'" [value]="getTimeUntilFunding( instrumentSubject | async)" />
+        </div>
         <div class="col">
             <app-instrument-value [title]="'High Price'" [value]="( instrumentSubject | async)?.highPrice" />
         </div>
