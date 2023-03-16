@@ -52,6 +52,17 @@ export class InstrumentPanelComponent implements OnInit, OnDestroy {
       
     })
   }
+
+  getTimeUntilFunding(instrument?:Instrument|undefined | null){
+    
+    if(!instrument) return;
+
+    const fundingTimestamp = new Date(instrument.fundingTimestamp).getTime();
+    const currentTimestamp = new Date().getTime();
+    const timeUntilFunding = fundingTimestamp - currentTimestamp;
+    const hoursUntilFunding = timeUntilFunding / (1000 * 60 * 60);
+    return Math.round(hoursUntilFunding).toString() + 'H';
+  }
   
 
   
