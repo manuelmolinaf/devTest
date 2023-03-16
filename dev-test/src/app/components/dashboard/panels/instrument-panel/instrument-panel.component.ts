@@ -34,7 +34,6 @@ export class InstrumentPanelComponent implements OnInit, OnDestroy {
   async initializeInstrument(){
     await this.bitmexService.getInstrument().then( res =>{
       this.instrumentSubject.next(res[0])
-      console.log(res[0]);
     });
   
     
@@ -47,7 +46,7 @@ export class InstrumentPanelComponent implements OnInit, OnDestroy {
   bitMexWebSocketSubscription(){
     this.bitmexSocket$?.subscribe( message =>{
 
-      if(message.table === Table.Instrument && message.data[0]?.symbol === Symbol.Bitcoin){       
+      if(message.table === Table.Instrument && message.data[0]?.symbol === Symbol.Bitcoin){      
         this.instrumentSubject.next({...this.instrumentSubject.getValue(), ...message.data[0]});
       }
       

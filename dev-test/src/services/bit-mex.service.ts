@@ -23,9 +23,6 @@ export class BitMexService {
     return this.bitMexSocket$;
    }
 
-   getAnnouncements(){
-    return this.http.get('/api/announcement');
-   }
 
    /**
     * @param symbol 
@@ -34,7 +31,12 @@ export class BitMexService {
     */
    getInstrument(symbol:string = 'XBTUSD'){
     const params = new HttpParams().set('symbol', symbol);
-    return lastValueFrom(this.http.get<Instrument[]>('/api/instrument?symbol=XBTUSD'));
+    return lastValueFrom(this.http.get<Instrument[]>('/api/instrument', {params}));
+   }
+
+   getOrderBook(symbol:string = 'XBTUSD'){
+    const params = new HttpParams().set('symbol', symbol);
+    return lastValueFrom(this.http.get<Instrument[]>('/api/orderBook/L2', {params}));
    }
 
 }

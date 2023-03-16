@@ -1,4 +1,3 @@
-import { OrderBook } from "./OrderBook";
 
 export interface Message{
     table:string,
@@ -10,10 +9,11 @@ export interface Message{
 export enum Action{
     Update = 'update',
     Insert = 'insert',
-    Delete = 'delete'
+    Delete = 'delete',
+    Partial = 'partial'
 }
 
 export enum Table{
     Instrument = 'instrument',
-    Orderbook = 'orderBookL2_25'
+    OrderBook = 'orderBookL2_25'
 }
