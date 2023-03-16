@@ -1,5 +1,5 @@
 <div class="d-flex flex-row shadow-sm">
-    <div class="flex-fill border border-bottom-0 border-top-0" >
+    <div class="flex-fill border-end border-start" >
         <p-table [columns]="bidCols" [value]="(orderBookSubject$ |async)!.bids |limitSort:10:-1" [rows]="2" [loading]="initializingOrderBook" styleClass="p-datatable-sm">
             <ng-template pTemplate="caption">
                 <div class="row">
@@ -25,7 +25,7 @@
         </p-table>
     </div>
     
-    <div class="flex-fill border border-bottom-0 border-start-0 ">
+    <div class="flex-fill border-end">
         <p-table [columns]="askCols" [value]="(orderBookSubject$ |async)!.asks |limitSort:10:1" [rows]="2" [loading]="initializingOrderBook" styleClass="p-datatable-sm">
             <ng-template pTemplate="caption">
                 <div class="row">

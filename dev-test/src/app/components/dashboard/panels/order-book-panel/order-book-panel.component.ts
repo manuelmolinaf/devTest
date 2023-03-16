@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { WebSocketSubject } from 'rxjs/webSocket';
-import { Message, Table, Action } from 'src/app/models/Message';
-import { OrderBook, OrderBookEntry, Side } from 'src/app/models/OrderBook';
+import { Message, Table, Action } from 'src/app/models/message';
+import { OrderBook, OrderBookEntry, Side } from 'src/app/models/orderBook';
 import { BitMexService } from 'src/services/bit-mex.service';
 
 @Component({
@@ -11,8 +11,8 @@ import { BitMexService } from 'src/services/bit-mex.service';
   styleUrls: ['./order-book-panel.component.css']
 })
 export class OrderBookPanelComponent implements OnInit, OnDestroy {
-  orderBookSubject$:BehaviorSubject<OrderBook> = new BehaviorSubject<OrderBook>({asks:[], bids:[]});
-  bitmexSocket$: WebSocketSubject<Message> |undefined;
+  orderBookSubject$:BehaviorSubject<OrderBook> = this.bitmexService.orderBookSubject;
+  bitmexSocket$: WebSocketSubject<Message> =  this.bitmexService.bitMexSocket;
 
   bidCols:any = [];
   askCols:any = [];
@@ -24,10 +24,7 @@ export class OrderBookPanelComponent implements OnInit, OnDestroy {
   
   ngOnInit(): void {
     this.defineColumns();
-    this.getBitMexWebSocketSubject();
     this.initializeOrderBook().then(()=>this.bitMexWebSocketSubscription());
-    //this.orderBookSubject$.asObservable().subscribe(val=> console.log(val));
-
   }
 
   ngOnDestroy(): void {
@@ -119,9 +116,6 @@ export class OrderBookPanelComponent implements OnInit, OnDestroy {
 
   }
 
-  getBitMexWebSocketSubject(){
-    this.bitmexSocket$ = this.bitmexService.getBitMexSocket();
-  }
 
   bitMexWebSocketSubscription(){
     this.bitmexSocket$?.subscribe( message =>{

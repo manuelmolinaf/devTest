@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { OrderBookEntry } from '../models/OrderBook';
+import { OrderBookEntry } from '../models/orderBook';
 
 @Pipe({
   name: 'limitSort'
