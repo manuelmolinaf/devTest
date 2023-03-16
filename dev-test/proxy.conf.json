@@ -1,10 +1,18 @@
 {
-    "/api": {
+    "/bitmex": {
       "target": "https://www.bitmex.com",
       "secure": true,
       "changeOrigin": true,
       "pathRewrite": {
-        "^/api": "/api/v1"
+        "^/bitmex": "/api/v1"
+      }
+    },
+    "/mongo": {
+      "target": "http://localhost:9000",
+      "secure": false,
+      "changeOrigin": true,
+      "pathRewrite": {
+        "^/mongo": "/api"
       }
     }
   }

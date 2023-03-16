@@ -3,15 +3,15 @@ const mongoose = require('mongoose');
 
 const snapshotSchema = mongoose.Schema({
     date:{
-        type:String,
+        type:Date,
         required:true
     },
     instrument:{
-        type:any,
+        type:mongoose.Schema.Types.Mixed,
         required: true
     },
     orderBook:{
-        type:any,
+        type:mongoose.Schema.Types.Mixed,
         required: true
     }
 });

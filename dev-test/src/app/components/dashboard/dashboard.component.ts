@@ -19,6 +19,10 @@ export class DashboardComponent implements OnInit {
     
   }
 
+  saveSnapshot(){
+    this.bitMexService.saveSnapshot().subscribe( res => console.log(res));
+  }
+
  
 
 }
