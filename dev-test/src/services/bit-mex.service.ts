@@ -3,10 +3,10 @@ import { HttpClient,HttpParams  } from '@angular/common/http';
 
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
 import { Message } from 'src/app/models/Message';
-import { Observable } from 'rxjs';
+import { lastValueFrom, Observable } from 'rxjs';
+import { Instrument } from 'src/app/models/Instrument';
 
 const socketEndpoint = 'wss://ws.bitmex.com/realtime?subscribe=instrument,orderBookL2_25:XBTUSD';
-const bitMexApiUrl = 'https://www.bitmex.com/api/v1/'
 
 @Injectable({
   providedIn: 'root'
@@ -24,17 +24,17 @@ export class BitMexService {
    }
 
    getAnnouncements(){
-    return this.http.get(bitMexApiUrl + 'announcement');
+    return this.http.get('/api/announcement');
    }
 
    /**
     * @param symbol 
-    * @description H
-    * @returns 
+    * @description gets the Instrument object for the given symbol. Uses the 'XBTUSD' if none is given.
+    * @returns  a Promise for the instrument of the given Symbol.
     */
-   getInstrument(symbol:string = 'XBTUSD'):Observable<any>{
+   getInstrument(symbol:string = 'XBTUSD'){
     const params = new HttpParams().set('symbol', symbol);
-    return this.http.get(bitMexApiUrl + 'instrument', {params});
+    return lastValueFrom(this.http.get<Instrument[]>('/api/instrument?symbol=XBTUSD'));
    }
 
 }

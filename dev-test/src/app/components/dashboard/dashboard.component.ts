@@ -8,7 +8,7 @@ import { BitMexService } from 'src/services/bit-mex.service';
 })
 export class DashboardComponent implements OnInit {
 
-  instrument:any = {}
+
 
   constructor(private bitMexService:BitMexService){
 
@@ -16,20 +16,9 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.getSocket();
+    
   }
 
-  getInstrument(){
-    this.bitMexService.getInstrument()
-  }
-
-  getSocket(){
-    this.bitMexService.getBitMexSocket().subscribe( (message) => {
-      if(message.data && message.data[0].symbol === 'XBTUSD')
-        console.log(message)
-        
-          
-    })
-  }
+ 
 
 }

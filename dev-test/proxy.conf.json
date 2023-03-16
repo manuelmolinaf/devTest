@@ -1,0 +1,10 @@
+{
+    "/api": {
+      "target": "https://www.bitmex.com",
+      "secure": true,
+      "changeOrigin": true,
+      "pathRewrite": {
+        "^/api": "/api/v1"
+      }
+    }
+  }
