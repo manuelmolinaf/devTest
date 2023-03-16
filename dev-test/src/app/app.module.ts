@@ -11,6 +11,7 @@ import { OrderBookPanelComponent } from './components/dashboard/panels/order-boo
 
 import { TableModule } from 'primeng/table';
 import { LimitSortPipe } from './pipes/limit-sort.pipe';
+import { MarkPriceValueComponent } from './components/dashboard/panels/instrument-panel/mark-price-value/mark-price-value.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { LimitSortPipe } from './pipes/limit-sort.pipe';
     InstrumentPanelComponent,
     InstrumentValueComponent,
     OrderBookPanelComponent,
-    LimitSortPipe
+    LimitSortPipe,
+    MarkPriceValueComponent
   ],
   imports: [
     BrowserModule,

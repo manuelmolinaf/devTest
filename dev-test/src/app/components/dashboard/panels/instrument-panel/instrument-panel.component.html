@@ -3,25 +3,28 @@
 <div class="border p-3 shadow-sm">
     <div class="row">
         <div class="col">
-            <app-instrument-value [title]="'Mark Price'" [value]="( instrumentSubject | async)?.markPrice" ></app-instrument-value>                
+            <app-mark-price-value [value]="( instrumentSubject | async)?.markPrice!"/>               
         </div>
         <div class="col">
-            <app-instrument-value [title]="'24H Volume'" [value]="( instrumentSubject | async)?.volume24h | currency:( instrumentSubject | async)?.positionCurrency: 'symbol' : '1.0-0'" ></app-instrument-value>
+            <app-instrument-value [title]="'Mark Price'" [value]="( instrumentSubject | async)?.markPrice" />            
         </div>
         <div class="col">
-            <app-instrument-value [title]="'Funding Rate'" [value]="( instrumentSubject | async)?.fundingRate |percent: '1.5-10'" ></app-instrument-value>
+            <app-instrument-value [title]="'24H Volume'" [value]="( instrumentSubject | async)?.volume24h | currency:( instrumentSubject | async)?.positionCurrency: 'symbol' : '1.0-0'" />
+        </div>
+        <!-- <div class="col">
+            <app-instrument-value [title]="'Funding Rate'" [value]="( instrumentSubject | async)?.fundingRate |percent: '1.5-10'" />
         </div>
         <div class="col">
-            <app-instrument-value [title]="'Next Funding'" [value]="( instrumentSubject | async)?.fundingInterval | date:'h\'H\' mm\'M\''" ></app-instrument-value>
+            <app-instrument-value [title]="'Next Funding'" [value]="( instrumentSubject | async)?.fundingInterval | date:'h\'H\' mm\'M\''" />
+        </div> -->
+        <div class="col">
+            <app-instrument-value [title]="'High Price'" [value]="( instrumentSubject | async)?.highPrice" />
         </div>
         <div class="col">
-            <app-instrument-value [title]="'High Price'" [value]="( instrumentSubject | async)?.highPrice" ></app-instrument-value>
+            <app-instrument-value [title]="'Low Price'" [value]="( instrumentSubject | async)?.lowPrice" />
         </div>
         <div class="col">
-            <app-instrument-value [title]="'Low Price'" [value]="( instrumentSubject | async)?.lowPrice" ></app-instrument-value>
-        </div>
-        <div class="col">
-            <app-instrument-value [title]="'Open Interest'" [value]="( instrumentSubject | async)?.openInterest | currency:( instrumentSubject | async)?.positionCurrency: 'symbol' : '1.0-0'" ></app-instrument-value>
+            <app-instrument-value [title]="'Open Interest'" [value]="( instrumentSubject | async)?.openInterest | currency:( instrumentSubject | async)?.positionCurrency: 'symbol' : '1.0-0'" />
         </div>
     </div>
 </div>
