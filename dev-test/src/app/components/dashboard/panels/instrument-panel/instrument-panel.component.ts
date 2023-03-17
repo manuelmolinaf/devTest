@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { BehaviorSubject  } from 'rxjs';
 import { WebSocketSubject } from 'rxjs/webSocket';
 import { Instrument } from 'src/app/models/instrument';
@@ -11,7 +11,9 @@ import { Symbol } from 'src/app/models/symbol';
   templateUrl: './instrument-panel.component.html',
   styleUrls: ['./instrument-panel.component.css']
 })
-export class InstrumentPanelComponent implements OnInit, OnDestroy {
+export class InstrumentPanelComponent implements OnInit, OnChanges, OnDestroy {
+  
+  @Input() id: string | null = null;
 
   instrumentSubject$:BehaviorSubject<Instrument | undefined> = this.bitmexService.instrumentSubject;
   bitmexSocket$: WebSocketSubject<Message> = this.bitmexService.bitMexSocket;
@@ -20,9 +22,23 @@ export class InstrumentPanelComponent implements OnInit, OnDestroy {
   
   }
 
+  ngOnChanges(): void {
+    this.getValues();
+  }
+
   ngOnInit(): void {
-    this.initializeInstrument();
-    this.bitMexWebSocketSubscription();
+    
+  }
+
+  getValues(){
+    if(!this.id){
+      this.initializeInstrument().then(()=> this.bitMexWebSocketSubscription());
+    }
+    else{
+      this.bitmexService.getSnapshot(this.id).then(snapshot =>{
+        this.instrumentSubject$ = new BehaviorSubject<Instrument | undefined>(snapshot.instrument);
+      } )
+    }
   }
 
   ngOnDestroy(): void {
@@ -30,10 +46,9 @@ export class InstrumentPanelComponent implements OnInit, OnDestroy {
   }
 
   async initializeInstrument(){
-    await this.bitmexService.getInstrument().then( res =>{
+    return this.bitmexService.getInstrument().then( res =>{
       this.instrumentSubject$.next(res[0])
     });
-  
     
   }
 

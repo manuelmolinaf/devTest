@@ -12,9 +12,11 @@ export class DashboardComponent implements OnInit {
 
   snapshotId:string |null = null;
 
-  constructor(private bitMexService:BitMexService, private toast: HotToastService, private route: ActivatedRoute){
-
-  }
+  constructor(
+    private bitMexService:BitMexService, 
+    private toast: HotToastService, 
+    private route: ActivatedRoute)
+    { }
 
   ngOnInit(): void {
 

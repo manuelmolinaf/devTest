@@ -1,5 +1,3 @@
-
-
 <div class="border p-3 shadow-sm">
     <div class="row">
         <div class="col">
@@ -11,9 +9,6 @@
         <div class="col">
             <app-instrument-value [title]="'24H Volume'" [value]="( instrumentSubject$ | async)?.volume24h | currency:( instrumentSubject$ | async)?.positionCurrency: 'symbol' : '1.0-0'" />
         </div>
-        <!-- <div class="col">
-            <app-instrument-value [title]="'Funding Rate'" [value]="( instrumentSubject$ | async)?.fundingRate |percent: '1.5-10'" />
-        </div> -->
 
         <div class="col">
             <app-instrument-value [title]="'Next Funding'" [value]="getTimeUntilFunding( instrumentSubject$ | async)" />

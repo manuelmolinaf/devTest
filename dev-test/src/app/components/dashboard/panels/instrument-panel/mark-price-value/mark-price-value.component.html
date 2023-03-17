@@ -1,13 +1,29 @@
-<div *ngIf="!markPriceUp; else elseBlock" class="row justify-content-center align-items-center h-100">
-    <div class="col text-center fw-bold fs-4 text-success">
-      <div>{{value}} <i class="pi pi-arrow-up fw-bold fs-6"></i></div>
+
+<ng-container *ngIf="isSnapshot; else elseBlock">
+  <div class="row justify-content-center align-items-center h-100">
+    <div class="col text-center fw-bold fs-4">
+      <div>{{value}}</div>
     </div>
-</div>
+  </div>
+</ng-container>
+
 
 <ng-template #elseBlock>
+
+  <ng-container *ngIf="!markPriceUp; else elseBlock2">
     <div class="row justify-content-center align-items-center h-100">
-        <div class="col text-center fw-bold fs-4 text-danger">
-          <div>{{value}} <i class="pi pi-arrow-down fw-bold fs-5"></i></div>
-        </div>
+      <div class="col text-center fw-bold fs-4 text-success">
+        <div>{{value}} <i class="pi pi-arrow-up fw-bold fs-6"></i></div>
+      </div>
     </div>
+  </ng-container>
+
+  <ng-template #elseBlock2>  
+      <div class="row justify-content-center align-items-center h-100">
+          <div class="col text-center fw-bold fs-4 text-danger">
+            <div>{{value}} <i class="pi pi-arrow-down fw-bold fs-5"></i></div>
+          </div>
+      </div>
+  </ng-template>
+
 </ng-template>

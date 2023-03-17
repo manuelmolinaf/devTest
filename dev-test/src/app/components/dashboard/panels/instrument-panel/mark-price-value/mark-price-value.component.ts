@@ -1,11 +1,12 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-mark-price-value',
   templateUrl: './mark-price-value.component.html',
   styleUrls: ['./mark-price-value.component.css']
 })
-export class MarkPriceValueComponent implements OnChanges {
+export class MarkPriceValueComponent implements OnChanges, OnInit {
   
   @Input() title = '';
   @Input() value:number = 0;
@@ -13,6 +14,15 @@ export class MarkPriceValueComponent implements OnChanges {
   previousValue = this.value;
 
   markPriceUp = true;
+  isSnapshot = false;
+
+  constructor(private route: ActivatedRoute){
+  }
+  ngOnInit(): void {
+    this.isSnapshot = this.route.snapshot.paramMap.has('id');
+  }
+
+
 
   ngOnChanges(): void {
 

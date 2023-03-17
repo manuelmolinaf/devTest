@@ -24,14 +24,15 @@ export class OrderBookPanelComponent implements OnInit, OnChanges, OnDestroy {
   constructor( private bitmexService:BitMexService){
 
   }
+
+  ngOnChanges(): void {
+    this.getValues();
+  }
   
   ngOnInit(): void {
     this.defineColumns();
   }
 
-  ngOnChanges(): void {
-    this.getValues()
-  }
 
   getValues(){
     if(!this.id){
