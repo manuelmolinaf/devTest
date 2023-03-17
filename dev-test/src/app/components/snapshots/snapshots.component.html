@@ -1,8 +1,18 @@
 <div class="container p-5">
-    <h1 class="fw-bold">Snapshots</h1>
+    <div class=" d-flex mb-4">
+        <div class="fw-bold fs-3">Snapshots</div>
 
-    <ng-template ngFor let-snapshot [ngForOf]="snapshots" let-i="index">
-        <div class="p-3 border mb-2 shadow-sm w-auto fw-bold" [routerLink]="['/dashboard', snapshot._id]">
+        <button class="btn btn-secondary btn-sm ms-auto" [ngClass]="{'bg-primary': ascending}" (click)="sortAscending()">
+            <i class="pi pi-sort-amount-down-alt me-1"></i> Ascending
+        </button>
+        <button class="btn btn-secondary btn-sm ms-3" [ngClass]="{'bg-primary': !ascending}" (click)="sortDescending()">
+            <i class="pi pi-sort-amount-down me-1"></i> Descending
+        </button>
+    </div>
+    
+
+    <ng-template ngFor let-snapshot [ngForOf]="filteredSnapshots" let-i="index">
+        <div class="p-3 border mb-2 shadow-sm w-auto fw-bold fs-5 snapshot-item text-center w-auto" [routerLink]="['/dashboard', snapshot._id]">
             {{snapshot.date | date:'medium'}}
         </div>
     </ng-template>

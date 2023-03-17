@@ -10,6 +10,9 @@ import { BitMexService } from 'src/services/bit-mex.service';
 export class SnapshotsComponent implements OnInit{
 
   snapshots:Snapshot[] = [];
+  filteredSnapshots:Snapshot[] = [];
+
+  ascending = true;
 
   constructor(private bitmexService: BitMexService){}
 
@@ -18,7 +21,20 @@ export class SnapshotsComponent implements OnInit{
   }
 
   getSnapshots(){
-   this.bitmexService.getSnapshots().then(res => this.snapshots = res).then(()=>console.log(this.snapshots));
+   this.bitmexService.getSnapshots()
+   .then(res => this.snapshots = res)
+   .then(()=>this.filteredSnapshots = this.snapshots);
+  }
+
+  sortAscending(){
+    this.filteredSnapshots = this.snapshots.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+    this.ascending = true;
+  }
+
+  sortDescending(){
+    console.log('test');
+    this.filteredSnapshots = this.snapshots.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    this.ascending = false;
   }
 
   

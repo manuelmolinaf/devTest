@@ -1,5 +1,5 @@
-import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
+import { BehaviorSubject, first } from 'rxjs';
 import { WebSocketSubject } from 'rxjs/webSocket';
 import { Message, Table, Action } from 'src/app/models/message';
 import { OrderBook, OrderBookEntry, Side } from 'src/app/models/orderBook';
@@ -19,7 +19,8 @@ export class OrderBookPanelComponent implements OnInit, OnChanges, OnDestroy {
 
   bidCols:any = [];
   askCols:any = [];
-  initializingOrderBook = false;
+  tableRows:number = 10;
+
 
   constructor( private bitmexService:BitMexService){
 
@@ -33,6 +34,11 @@ export class OrderBookPanelComponent implements OnInit, OnChanges, OnDestroy {
     this.defineColumns();
   }
 
+  ngOnDestroy(): void {
+    this.bitmexSocket$?.unsubscribe();
+  }
+
+
 
   getValues(){
     if(!this.id){
@@ -45,9 +51,6 @@ export class OrderBookPanelComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  ngOnDestroy(): void {
-    this.bitmexSocket$?.unsubscribe();
-  }
 
   defineColumns(){
     this.bidCols = [

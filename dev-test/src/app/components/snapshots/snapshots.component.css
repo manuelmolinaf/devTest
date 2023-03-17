@@ -1,0 +1,13 @@
+.snapshot-item:hover{
+    cursor: pointer;
+    background-color: rgb(233, 233, 233);
+}
+
+.sort-option:hover{
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+.container{
+    width:700px;
+}

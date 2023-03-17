@@ -5,6 +5,7 @@ import { OrderBookEntry } from '../models/orderBook';
   name: 'limitSort'
 })
 export class LimitSortPipe implements PipeTransform {
+  
 
   transform(value: OrderBookEntry[], limit:number, sort:number): OrderBookEntry[] {  
     
@@ -18,7 +19,6 @@ export class LimitSortPipe implements PipeTransform {
       default: 
         break;
     }
-
     return value.slice(0, limit);
   }
 

@@ -1,6 +1,25 @@
+
+
+
+  <div class="d-flex">
+    <div class="ms-auto me-2 p-1 fw-bold">
+        Rows:
+    </div>
+
+    <div>
+        <select class="form-select form-select-sm mb-3  w-auto" [(ngModel)]="tableRows">
+            <option [value]="5">5</option>
+            <option [value]="10">10</option>
+            <option [value]="15">15</option>
+            <option [value]="20">20</option> 
+        </select>
+    </div>
+
+  </div>
 <div class="d-flex flex-row shadow-sm">
+    
     <div class="flex-fill border-end border-start" >
-        <p-table [columns]="bidCols" [value]="(orderBookSubject$ |async)!.bids |limitSort:10:-1" [rows]="2" [loading]="initializingOrderBook" styleClass="p-datatable-sm">
+        <p-table [columns]="bidCols" [value]="(orderBookSubject$ |async)!.bids |limitSort:tableRows:-1" [rows]="2" styleClass="p-datatable-sm">
             <ng-template pTemplate="caption">
                 <div class="row">
                     <div class="col text-center">
@@ -26,7 +45,7 @@
     </div>
     
     <div class="flex-fill border-end">
-        <p-table [columns]="askCols" [value]="(orderBookSubject$ |async)!.asks |limitSort:10:1" [rows]="2" [loading]="initializingOrderBook" styleClass="p-datatable-sm">
+        <p-table [columns]="askCols" [value]="(orderBookSubject$ |async)!.asks |limitSort:tableRows:1" [rows]="2" styleClass="p-datatable-sm">
             <ng-template pTemplate="caption">
                 <div class="row">
                     <div class="col text-center">
