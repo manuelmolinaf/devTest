@@ -38,4 +38,15 @@ mongoose.connect(process.env.MONGODB_URI)
   status.message = error;
 })
 
+mongoose.connection.on('disconnected', () => {
+  console.log('Lost connection to database');
+  status.mongoConnected = false;
+  status.message = 'Lost connection to database';
+});
+
+mongoose.connection.on('connected', () => {
+  console.log('Lost connection to database');
+  status.mongoConnected = true;
+  status.message = 'connected to database!';
+});
 app.listen(port, () => console.log('server listening on port', port));
