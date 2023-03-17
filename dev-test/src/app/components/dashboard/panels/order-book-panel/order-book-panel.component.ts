@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { WebSocketSubject } from 'rxjs/webSocket';
 import { Message, Table, Action } from 'src/app/models/message';
@@ -10,7 +10,10 @@ import { BitMexService } from 'src/services/bit-mex.service';
   templateUrl: './order-book-panel.component.html',
   styleUrls: ['./order-book-panel.component.css']
 })
-export class OrderBookPanelComponent implements OnInit, OnDestroy {
+export class OrderBookPanelComponent implements OnInit, OnChanges, OnDestroy {
+
+  @Input() id: string | null = null;
+
   orderBookSubject$:BehaviorSubject<OrderBook> = this.bitmexService.orderBookSubject;
   bitmexSocket$: WebSocketSubject<Message> =  this.bitmexService.bitMexSocket;
 
@@ -24,7 +27,21 @@ export class OrderBookPanelComponent implements OnInit, OnDestroy {
   
   ngOnInit(): void {
     this.defineColumns();
-    this.initializeOrderBook().then(()=>this.bitMexWebSocketSubscription());
+  }
+
+  ngOnChanges(): void {
+    this.getValues()
+  }
+
+  getValues(){
+    if(!this.id){
+      this.initializeOrderBook().then(()=>this.bitMexWebSocketSubscription());
+    }
+    else{
+      this.bitmexService.getSnapshot(this.id).then(snapshot =>{
+        this.orderBookSubject$ = new BehaviorSubject<OrderBook>(snapshot.orderBook);
+      } )
+    }
   }
 
   ngOnDestroy(): void {
@@ -51,11 +68,7 @@ export class OrderBookPanelComponent implements OnInit, OnDestroy {
     
   }
 
-  /**
-   * @param entries
-   * @param action 
-   * @description Updates the orderbook based on the action given.
-   */
+
   updateOrderBook(entries:OrderBookEntry[], action:Action){
 
     switch(action){
