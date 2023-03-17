@@ -5,6 +5,7 @@ import { Instrument } from 'src/app/models/instrument';
 import { Message, Table } from 'src/app/models/message';
 import { BitMexService } from 'src/services/bit-mex.service';
 import { Symbol } from 'src/app/models/symbol';
+import { SnapshotService } from 'src/services/snapshot.service';
 
 @Component({
   selector: 'app-instrument-panel',
@@ -18,7 +19,7 @@ export class InstrumentPanelComponent implements OnInit, OnChanges, OnDestroy {
   instrumentSubject$:BehaviorSubject<Instrument | undefined> = this.bitmexService.instrumentSubject;
   bitmexSocket$: WebSocketSubject<Message> = this.bitmexService.bitMexSocket;
   
-  constructor( private bitmexService:BitMexService){
+  constructor( private bitmexService:BitMexService, private snapshotService:SnapshotService){
   
   }
 
@@ -35,7 +36,7 @@ export class InstrumentPanelComponent implements OnInit, OnChanges, OnDestroy {
       this.initializeInstrument().then(()=> this.bitMexWebSocketSubscription());
     }
     else{
-      this.bitmexService.getSnapshot(this.id).then(snapshot =>{
+      this.snapshotService.getSnapshot(this.id).then(snapshot =>{
         this.instrumentSubject$ = new BehaviorSubject<Instrument | undefined>(snapshot.instrument);
       } )
     }

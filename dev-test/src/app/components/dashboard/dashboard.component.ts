@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
-import { BitMexService } from 'src/services/bit-mex.service';
+import { SnapshotService } from 'src/services/snapshot.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,10 +12,10 @@ export class DashboardComponent implements OnInit {
 
   snapshotId:string |null = null;
 
-  constructor(
-    private bitMexService:BitMexService, 
+  constructor( 
     private toast: HotToastService, 
-    private route: ActivatedRoute)
+    private route: ActivatedRoute,
+    private snapshotService: SnapshotService)
     { }
 
   ngOnInit(): void {
@@ -26,7 +26,7 @@ export class DashboardComponent implements OnInit {
 
   saveSnapshot(){
     
-    this.bitMexService.saveSnapshot().pipe(
+    this.snapshotService.saveSnapshot().pipe(
       this.toast.observe({
         loading: 'Saving...',
         success: 'Snapshot saved!',

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Snapshot } from 'src/app/models/snapshot';
 import { BitMexService } from 'src/services/bit-mex.service';
+import { SnapshotService } from 'src/services/snapshot.service';
 
 @Component({
   selector: 'app-snapshots',
@@ -17,14 +18,14 @@ export class SnapshotsComponent implements OnInit{
   fromDate:Date | null = null;
   toDate:Date | null = null;
 
-  constructor(private bitmexService: BitMexService){}
+  constructor(private bitmexService: BitMexService, private snapshotService:SnapshotService){}
 
   ngOnInit(): void {
     this.getSnapshots();
   }
 
   getSnapshots(){
-   this.bitmexService.getSnapshots()
+   this.snapshotService.getSnapshots()
    .then(res => this.snapshots = res)
    .then(()=>this.filteredSnapshots = this.snapshots);
   }

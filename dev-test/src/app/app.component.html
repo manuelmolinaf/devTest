@@ -14,10 +14,12 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link text-white" aria-current="page" href="#"><i class="pi pi-circle-fill text-danger live-icon me-1"></i>Live Dashboard</a>
+          <a class="nav-link text-white" aria-current="page" href="#" [ngClass]="{'fw-bold': currentRoute.includes('live')}">
+            <i class="pi pi-circle-fill text-danger live-icon me-2"></i>Live Dashboard
+          </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" routerLink="/snapshots">Snapshots</a>
+          <a class="nav-link text-white" routerLink="/snapshots" [ngClass]="{'fw-bold': !currentRoute.includes('live')}">Snapshots</a>
         </li>
         
       </ul>

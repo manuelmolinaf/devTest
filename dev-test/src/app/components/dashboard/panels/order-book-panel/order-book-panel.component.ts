@@ -4,6 +4,7 @@ import { WebSocketSubject } from 'rxjs/webSocket';
 import { Message, Table, Action } from 'src/app/models/message';
 import { OrderBook, OrderBookEntry, Side } from 'src/app/models/orderBook';
 import { BitMexService } from 'src/services/bit-mex.service';
+import { SnapshotService } from 'src/services/snapshot.service';
 
 @Component({
   selector: 'app-order-book-panel',
@@ -22,7 +23,7 @@ export class OrderBookPanelComponent implements OnInit, OnChanges, OnDestroy {
   tableRows:number = 10;
 
 
-  constructor( private bitmexService:BitMexService){
+  constructor( private bitmexService:BitMexService, private snapshotService:SnapshotService){
 
   }
 
@@ -45,7 +46,7 @@ export class OrderBookPanelComponent implements OnInit, OnChanges, OnDestroy {
       this.initializeOrderBook().then(()=>this.bitMexWebSocketSubscription());
     }
     else{
-      this.bitmexService.getSnapshot(this.id).then(snapshot =>{
+      this.snapshotService.getSnapshot(this.id).then(snapshot =>{
         this.orderBookSubject$ = new BehaviorSubject<OrderBook>(snapshot.orderBook);
       } )
     }

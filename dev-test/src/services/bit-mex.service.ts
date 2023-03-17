@@ -48,31 +48,6 @@ export class BitMexService {
   return lastValueFrom(this.http.get<OrderBookEntry[]>('/bitmex/orderBook/L2', {params}));
   }
 
-  saveSnapshot():Observable<Snapshot>{
-
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json'
-      })
-    };
-
-    const newSnapshot:Snapshot ={
-      date: new Date(),
-      instrument: this.instrumentSubject$.getValue()!,
-      orderBook: this.orderBookSubject$.getValue()
-    } 
-
-    return this.http.post<Snapshot>('mongo/saveSnapshot', newSnapshot, httpOptions);
-
-  }
-
-  getSnapshots(){
-    return lastValueFrom(this.http.get<Snapshot[]>('mongo/snapshots'));
-  }
-
-  getSnapshot(id:string){
-    return lastValueFrom(this.http.get<Snapshot>(`mongo/snapshot/${id}`));
-  }
-
+  
 
 }
