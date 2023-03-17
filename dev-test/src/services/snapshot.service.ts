@@ -39,5 +39,9 @@ export class SnapshotService {
     return lastValueFrom(this.http.get<Snapshot>(`mongo/snapshot/${id}`));
   }
 
+  checkConnection():any{
+    return this.http.get('mongo/status');
+  }
+
 
 }
