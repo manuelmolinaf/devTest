@@ -13,6 +13,8 @@ import { TableModule } from 'primeng/table';
 import { LimitSortPipe } from './pipes/limit-sort.pipe';
 import { MarkPriceValueComponent } from './components/dashboard/panels/instrument-panel/mark-price-value/mark-price-value.component';
 
+import { HotToastModule } from '@ngneat/hot-toast';
+import { SnapshotsComponent } from './components/snapshots/snapshots.component';
 
 @NgModule({
   declarations: [
@@ -22,14 +24,16 @@ import { MarkPriceValueComponent } from './components/dashboard/panels/instrumen
     InstrumentValueComponent,
     OrderBookPanelComponent,
     LimitSortPipe,
-    MarkPriceValueComponent
+    MarkPriceValueComponent,
+    SnapshotsComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    TableModule
+    TableModule,
+    HotToastModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

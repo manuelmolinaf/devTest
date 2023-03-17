@@ -1,11 +1,16 @@
 
-<div class="container mt-5 p-5">
-    <h1 class="fw-bold panel pb-0">XBTUSD</h1>
-    <button class="btn btn-primary" (click)="saveSnapshot()"> Save Snapshot</button>
+<div class="container p-5">
+    <div class="d-flex">
+        <h1 class="fw-bold ms-2 pb-0">XBTUSD</h1>
+        <div class="ms-auto me-2">
+            <button class="btn btn-primary" (click)="saveSnapshot()"><i class="pi pi-save me-2"></i>Save Snapshot</button>
+        </div>
+        
+    </div>  
     <div class="panel">
         <app-instrument-panel></app-instrument-panel>
     </div>
     <div class="panel">
-        <app-order-book-panel></app-order-book-panel>
+        <app-order-book-panel [id]="snapshotId"></app-order-book-panel>
     </div>
 </div>

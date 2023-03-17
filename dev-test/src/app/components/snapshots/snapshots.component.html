@@ -1,0 +1,12 @@
+<div class="container p-5">
+    <h1 class="fw-bold">Snapshots</h1>
+
+    <ng-template ngFor let-snapshot [ngForOf]="snapshots" let-i="index">
+        <div class="p-3 border mb-2 shadow-sm w-auto fw-bold" [routerLink]="['/dashboard', snapshot._id]">
+            {{snapshot.date | date:'medium'}}
+        </div>
+    </ng-template>
+
+</div>
+
+

@@ -25,6 +25,7 @@ export class BitMexService {
     this.bitMexSocket$ = webSocket(this.socketEndpoint);
   }
 
+
   get bitMexSocket(){
   return this.bitMexSocket$;
   }
@@ -49,20 +50,28 @@ export class BitMexService {
 
   saveSnapshot():Observable<Snapshot>{
 
-  const httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type':  'application/json'
-    })
-  };
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      })
+    };
 
-  const newSnapshot:Snapshot ={
-    date: new Date(),
-    instrument: this.instrumentSubject$.getValue()!,
-    orderBook: this.orderBookSubject$.getValue()
-  } 
+    const newSnapshot:Snapshot ={
+      date: new Date(),
+      instrument: this.instrumentSubject$.getValue()!,
+      orderBook: this.orderBookSubject$.getValue()
+    } 
 
-  return this.http.post<Snapshot>('mongo/saveSnapshot', newSnapshot);
+    return this.http.post<Snapshot>('mongo/saveSnapshot', newSnapshot, httpOptions);
 
+  }
+
+  getSnapshots(){
+    return lastValueFrom(this.http.get<Snapshot[]>('mongo/snapshots'));
+  }
+
+  getSnapshot(id:string){
+    return lastValueFrom(this.http.get<Snapshot>(`mongo/snapshot/${id}`));
   }
 
 
