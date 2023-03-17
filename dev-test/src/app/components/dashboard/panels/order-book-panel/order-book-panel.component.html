@@ -18,7 +18,7 @@
   </div>
 <div class="d-flex flex-row shadow-sm">
     
-    <div class="flex-fill border-end border-start" >
+    <div class="flex-fill border-end border-start">
         <p-table [columns]="bidCols" [value]="(orderBookSubject$ |async)!.bids |limitSort:tableRows:-1" [rows]="2" styleClass="p-datatable-sm">
             <ng-template pTemplate="caption">
                 <div class="row">

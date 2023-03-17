@@ -14,6 +14,9 @@ export class SnapshotsComponent implements OnInit{
 
   ascending = true;
 
+  fromDate:Date | null = null;
+  toDate:Date | null = null;
+
   constructor(private bitmexService: BitMexService){}
 
   ngOnInit(): void {
@@ -27,14 +30,37 @@ export class SnapshotsComponent implements OnInit{
   }
 
   sortAscending(){
-    this.filteredSnapshots = this.snapshots.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
     this.ascending = true;
+    this.filter();
   }
 
   sortDescending(){
-    console.log('test');
-    this.filteredSnapshots = this.snapshots.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
     this.ascending = false;
+    this.filter();
+  }
+
+  filter(){
+    let newlist = this.snapshots;
+
+    if(this.fromDate){
+      
+      newlist = newlist.filter( snapshot => new Date(snapshot.date) >= new Date(this.fromDate!));
+      
+    }
+
+    if(this.toDate){
+      newlist = newlist.filter( snapshot => new Date(snapshot.date) <= new Date(this.toDate!))
+    }
+
+    if(this.ascending){
+      newlist = newlist.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+    }
+    else{
+      newlist = newlist.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    }
+
+    this.filteredSnapshots = newlist;
+    
   }
 
   

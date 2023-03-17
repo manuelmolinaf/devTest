@@ -17,6 +17,7 @@ import { MarkPriceValueComponent } from './components/dashboard/panels/instrumen
 import { HotToastModule } from '@ngneat/hot-toast';
 import { SnapshotsComponent } from './components/snapshots/snapshots.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,6 +30,7 @@ import { SnapshotsComponent } from './components/snapshots/snapshots.component';
     SnapshotsComponent
   ],
   imports: [
+  
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
