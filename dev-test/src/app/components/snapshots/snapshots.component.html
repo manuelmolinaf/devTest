@@ -3,7 +3,7 @@
 <div class="container p-5">
     <div *ngIf="!serverConnected || !mongoConnected"  class="p-3 text-warning-emphasis bg-warning-subtle border border-warning-subtle rounded-3 mb-5">
         <p *ngIf="!serverConnected" class="fw-bold fs-5 mb-4"> Uh Oh. Looks like the server is not Running :(</p>
-        <p *ngIf="!mongoConnected" class="fw-bold fs-5 mb-4"> Uh Oh. Looks like the server couldn't connect to mongodb :(</p>
+        <p *ngIf="!mongoConnected && serverConnected" class="fw-bold fs-5 mb-4"> Uh Oh. Looks like the server couldn't connect to mongodb :(</p>
         <p>
             Make sure the nodejs express server is running and that it is connected to a mongodb database.
             To run the server open the terminal in the dev-test-server directory and run 
