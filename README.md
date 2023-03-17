@@ -1,3 +1,12 @@
+# Assignment Done!
+Make sure the nodejs express server is running and that it is connected to a mongodb database.
+To run the server open the terminal in the dev-test-server directory and run **npm install** and then **npm start**.
+
+The mongodb instance should be running on port **27017**, you can run the docker image I used which can be found [here](https://hub.docker.com/repository/docker/manuelmolinaf/dev-test-mongo/general).
+Alternatively you can use your own mongodb instance.The mongdb connection string can be found in the **.env** file at the root of the dev-test-server directory.
+
+
+
 # devTest
 We want to understand better how good you are integrating several technologies to provide a solid solution, this is a sample project that will help ilustrate just that.
 
